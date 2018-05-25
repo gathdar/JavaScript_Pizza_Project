@@ -4,69 +4,174 @@
         <meta charset="utf-8">
         <title>Pizza Delivery Webpage</title>
         <link rel="stylesheet" href="./css/style.css">
+        <script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                
+                $('#calculate').click(function() {
+                    //radio button functionality, note: these values are text and must later be parsed
+                    var sizeName = $('input[name=radio_size]:checked').parent().text();
+                    var sizePriceValue = $('input[name=radio_size]:checked').val(); 
+                        $("#size_price").text(sizePriceValue);
+                        $("#size_selection").text(sizeName);
+
+                    var cheeseName = $('input[name=radio_cheese]:checked').parent().text();
+                    var cheesePriceValue = $('input[name=radio_cheese]:checked').val();
+                        $("#cheese_price").text(cheesePriceValue);
+                        $("#cheese_selection").text(cheeseName);
+                    
+                    var crustName = $('input[name=radio_crust]:checked').parent().text();
+                    var crustPriceValue = $('input[name=radio_crust]:checked').val();
+                        $("#crust_price").text(crustPriceValue);
+                        $("#crust_selection").text(crustName);
+                    
+                    var sauceName = $('input[name=radio_sauce]:checked').parent().text();
+                    var saucePriceValue = $('input[name=radio_sauce]:checked').val();
+                        $("#sauce_price").text(saucePriceValue);
+                        $("#sauce_selection").text(sauceName);
+                    
+                    //checkbox functionality
+                    var meatName = $('input[name=meat]:checked').parent().text();
+                    var meatCheck = $('input[name=meat]:checked').length;
+                    var meatPrice = meatCheck - 1;
+                        if (meatPrice < 0) {
+                            meatPrice = 0;
+                        }
+                        $("#meat_price").text(meatPrice + ".00");
+                        $("#meat_selection").text(meatName);
+                       
+                    var veggieName = $('input[name=veggie]:checked').parent().text();
+                    var veggieCheck = $('input[name=veggie]:checked').length;
+                    var veggiePrice = veggieCheck -1;
+                        if (veggiePrice < 0) {
+                            veggiePrice = 0;
+                        }
+                        $("#veggie_price").text(veggiePrice + ".00");
+                        $("#veggie_selection").text(veggieName);
+                    
+                    var total = (parseFloat(sizePriceValue) + parseFloat(cheesePriceValue) + parseFloat(crustPriceValue) + parseFloat(saucePriceValue) + meatPrice + veggiePrice) + ".00";
+                        $("#grand_total").text(total);
+                });
+                
+                // the clear button refreshes the page
+                $("#clear").click(function() {
+                    window.location.href=window.location.href;
+                });
+            });
+        </script>
     </head>
+    
 <body>
     <h1>Welcome, Please Select Your Pizza</h1>
     <!--the size selection buttons-->
-    <div class="size">
+    <div class="size" id="size">
         <p>Pizza Size</p>
-        <label class="radio-inline"><input type="radio" name="optradio">Personal</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Medium</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Large</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Extra Large</label>
+        <label class="radio-inline"><input type="radio" name="radio_size" value="6.00">Personal</label>
+        <label class="radio-inline"><input type="radio" name="radio_size" value="10.00">Medium</label>
+        <label class="radio-inline"><input type="radio" name="radio_size" value="14.00">Large</label>
+        <label class="radio-inline"><input type="radio" name="radio_size" value="16.00">Extra Large</label>
     </div>
     <!--the meat selection check boxes-->
     <div class="meat">
         <p>Meat Selection</p>
-            <label class ="checkbox-inline"><input type="checkbox" value="">Pepperoni</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Sausage</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Canadian Bacon</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Ground Beef</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Anchovy</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Chicken</label>
+            <label class ="checkbox-inline"><input type="checkbox" name ="meat" value="">Pepperoni </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Sausage </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Canadian Bacon </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Ground Beef </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Anchovy </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Chicken </label>
     </div>
     <!--the cheese selection buttons-->
     <div class="cheese">
         <p>Cheese Selection</p>
-        <label class="radio-inline"><input type="radio" name="optradio">Regular</label>
-        <label class="radio-inline"><input type="radio" name="optradio">No Cheese</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Extra Cheese</label>
+        <label class="radio-inline"><input type="radio" name="radio_cheese" value="0.00">Regular</label>
+        <label class="radio-inline"><input type="radio" name="radio_cheese" value="0.00">No Cheese</label>
+        <label class="radio-inline"><input type="radio" name="radio_cheese" value="3.00">Extra Cheese</label>
     </div>
     <!--the crust selection buttons-->
     <div class="crust">
         <p>Crust Selection</p>
-        <label class="radio-inline"><input type="radio" name="optradio">Plain Crust</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Garlic Crust</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Cheese Stuffed Crust</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Spicy Crust</label>
-        <label class="radio-inline"><input type="radio" name="optradio">House Special Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Plain Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Garlic Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="3.00">Cheese Stuffed Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Spicy Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">House Special Crust</label>
     </div>
     <!--the sauce selection buttons-->
     <div class="sauce">
         <p>Sauce Selection</p>
-        <label class="radio-inline"><input type="radio" name="optradio">Marinara Sauce</label>
-        <label class="radio-inline"><input type="radio" name="optradio">White Sauce</label>
-        <label class="radio-inline"><input type="radio" name="optradio">Barbeque Sauce</label>
-        <label class="radio-inline"><input type="radio" name="optradio">No Sauce</label>
+        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">Marinara Sauce</label>
+        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">White Sauce</label>
+        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">Barbeque Sauce</label>
+        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">No Sauce</label>
     </div>
     <!--the veggie selection check boxes-->
     <div class="veggie">
         <p>Veggie Selection</p>
-            <label class="checkbox-inline"><input type="checkbox" value="">Tomatoes</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Onions</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Olives</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Green Peppers</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Mushrooms</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Pineapple</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Spinach</label>
-            <label class="checkbox-inline"><input type="checkbox" value="">Jalapeno</label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Tomatoes </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Onions </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Olives </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Green Peppers </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Mushrooms </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Pineapple </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Spinach </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Jalapenos </label>
+    </div>
+    <!--calculate and clear buttons-->
+    <p></p>
+    <div class="calculate">
+				<button id="calculate">Calculate!</button> 
+				<button id= "clear">Clear</button>
     </div>
     <!--Receipt Content-->
     <div>
         <p>Receipt</p>
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col1"></th>
+              <th scope="col2">ITEM</th>
+              <th scope="col3">TOTAL</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Size</th>
+              <td id=size_selection>None</td>
+              <td id=size_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Meat</th>
+              <td id=meat_selection>None</td>
+              <td id=meat_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Cheese</th>
+              <td id=cheese_selection>None</td>
+              <td id=cheese_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Crust</th>
+              <td id=crust_selection>None</td>
+              <td id=crust_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Sauce</th>
+              <td id=sauce_selection>None</td>
+              <td id=sauce_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Veggies</th>
+              <td id=veggie_selection>None</td>
+              <td id=veggie_price>0.00</td>
+            </tr>
+            <tr>
+              <th scope="row">Grand Total</th>
+              <td></td>
+              <td id=grand_total>0.00</td>
+            </tr>
+          </tbody>
+        </table>
     </div>
-    <script>
-
-    </script>
 </body>
 </html>
