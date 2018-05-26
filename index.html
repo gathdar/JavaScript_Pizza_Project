@@ -14,6 +14,9 @@
                     var sizePriceValue = $('input[name=radio_size]:checked').val(); 
                         $("#size_price").text(sizePriceValue);
                         $("#size_selection").text(sizeName);
+                    if (!sizePriceValue){
+                        alert("Please select a size")
+                    }
 
                     var cheeseName = $('input[name=radio_cheese]:checked').parent().text();
                     var cheesePriceValue = $('input[name=radio_cheese]:checked').val();
@@ -31,7 +34,12 @@
                         $("#sauce_selection").text(sauceName);
                     
                     //checkbox functionality
-                    var meatName = $('input[name=meat]:checked').parent().text();
+                    var meatName = $('input[name=meat]:checked').map(function(){
+                        return this.value;
+                    })
+                    .get()
+                    .join(", ");
+                    
                     var meatCheck = $('input[name=meat]:checked').length;
                     var meatPrice = meatCheck - 1;
                         if (meatPrice < 0) {
@@ -40,7 +48,11 @@
                         $("#meat_price").text(meatPrice + ".00");
                         $("#meat_selection").text(meatName);
                        
-                    var veggieName = $('input[name=veggie]:checked').parent().text();
+                    var veggieName = $('input[name=veggie]:checked').map(function(){
+                        return this.value;
+                    })
+                    .get()
+                    .join(", ");
                     var veggieCheck = $('input[name=veggie]:checked').length;
                     var veggiePrice = veggieCheck -1;
                         if (veggiePrice < 0) {
@@ -49,7 +61,11 @@
                         $("#veggie_price").text(veggiePrice + ".00");
                         $("#veggie_selection").text(veggieName);
                     
+                    if (!sizePriceValue){
+                        var total = "0.00";}
+                    else {
                     var total = (parseFloat(sizePriceValue) + parseFloat(cheesePriceValue) + parseFloat(crustPriceValue) + parseFloat(saucePriceValue) + meatPrice + veggiePrice) + ".00";
+                    }
                         $("#grand_total").text(total);
                 });
                 
@@ -74,24 +90,24 @@
     <!--the meat selection check boxes-->
     <div class="meat">
         <p>Meat Selection</p>
-            <label class ="checkbox-inline"><input type="checkbox" name ="meat" value="">Pepperoni </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Sausage </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Canadian Bacon </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Ground Beef </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Anchovy </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="">Chicken </label>
+            <label class ="checkbox-inline"><input type="checkbox" name ="meat" value="Pepperoni">Pepperoni </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="Sausage">Sausage </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="Canadian Bacon">Canadian Bacon </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="Ground Beef">Ground Beef </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="Anchovy">Anchovy </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="meat" value="Chicken">Chicken </label>
     </div>
     <!--the cheese selection buttons-->
     <div class="cheese">
         <p>Cheese Selection</p>
-        <label class="radio-inline"><input type="radio" name="radio_cheese" value="0.00">Regular</label>
+        <label class="radio-inline"><input type="radio" name="radio_cheese" value="0.00" checked>Regular</label>
         <label class="radio-inline"><input type="radio" name="radio_cheese" value="0.00">No Cheese</label>
         <label class="radio-inline"><input type="radio" name="radio_cheese" value="3.00">Extra Cheese</label>
     </div>
     <!--the crust selection buttons-->
     <div class="crust">
         <p>Crust Selection</p>
-        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Plain Crust</label>
+        <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00" checked>Plain Crust</label>
         <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Garlic Crust</label>
         <label class="radio-inline"><input type="radio" name="radio_crust" value="3.00">Cheese Stuffed Crust</label>
         <label class="radio-inline"><input type="radio" name="radio_crust" value="0.00">Spicy Crust</label>
@@ -100,7 +116,7 @@
     <!--the sauce selection buttons-->
     <div class="sauce">
         <p>Sauce Selection</p>
-        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">Marinara Sauce</label>
+        <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00" checked>Marinara Sauce</label>
         <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">White Sauce</label>
         <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">Barbeque Sauce</label>
         <label class="radio-inline"><input type="radio" name="radio_sauce" value="0.00">No Sauce</label>
@@ -108,14 +124,14 @@
     <!--the veggie selection check boxes-->
     <div class="veggie">
         <p>Veggie Selection</p>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Tomatoes </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Onions </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Olives </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Green Peppers </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Mushrooms </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Pineapple </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Spinach </label>
-            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="">Jalapenos </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Tomatoes">Tomatoes </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Onions">Onions </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Olives">Olives </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Green Peppers">Green Peppers </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Mushrooms">Mushrooms </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Pineapple">Pineapple </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Spinach">Spinach </label>
+            <label class="checkbox-inline"><input type="checkbox" name ="veggie" value="Jalapenos">Jalapenos </label>
     </div>
     <!--calculate and clear buttons-->
     <p></p>
@@ -130,7 +146,7 @@
           <thead>
             <tr>
               <th scope="col1"></th>
-              <th scope="col2">ITEM</th>
+              <th scope="col2">ITEM(S)</th>
               <th scope="col3">TOTAL</th>
             </tr>
           </thead>
